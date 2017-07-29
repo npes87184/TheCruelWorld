@@ -57,9 +57,9 @@
 							<label>Allow debt</label>
 						</div>
         </div>
-        <div class="row">
-          <div class="col s3 offset-s3"><a class="waves-effect waves-light btn" id="goExperiment">Go!</a></div>
-          <div class="col s3"><a class="waves-effect waves-light btn" id="randomData">Ramdom</a></div>
+        <div class="row center">
+          <a class="waves-effect waves-light btn" id="goExperiment">Go!</a>
+          <a class="waves-effect waves-light btn" id="randomData">Ramdom</a>
         </div>
     </div>
     <script>
@@ -104,7 +104,7 @@
                     },
                     title: {
                         display: true,
-                        text: 'The worth of each people'
+                        text: 'The wealth of each people'
                     }
                 }
             });
@@ -165,8 +165,21 @@
         });
 
         document.getElementById('randomData').addEventListener('click', function() {
-						document.getElementById("days").value = 10000;
-						document.getElementById("people").value = 100;
+            var randomDays = Math.floor(Math.random() * 20000);
+            var randomPeople = Math.floor(Math.random() * 500);
+            var dataSet = [];
+            var labelSet = [];
+
+						document.getElementById("days").value = randomDays;
+						document.getElementById("people").value = randomPeople;
+            for (i = 0; i < randomPeople; ++i) {
+                dataSet.push(100);
+                labelSet.push(i);
+            }
+
+            barChartData.labels = labelSet;
+            barChartData.datasets[0].data = dataSet;
+						window.myBar.update();
         });
 
 				/* Initialize combobox. */
