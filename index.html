@@ -116,10 +116,15 @@
             var j = 0;
 						var dataSet = [];
 						var labelSet = [];
-						var days = document.getElementById("days").value;
-						var people =  document.getElementById("people").value;
+						var days = parseInt(document.getElementById("days").value, 10);
+						var people =  parseInt(document.getElementById("people").value, 10);
             var blSorted = (document.getElementById("sort").selectedIndex === 1);
             var blAllowDebt = (document.getElementById("debt").selectedIndex === 1);
+
+            if (isNaN(days) || isNaN(people) || days < 0 || people < 0) {
+                Materialize.toast('Bad parameters', 4000);
+                return;
+            }
 
             for (i = 0; i < people; ++i) {
                 dataSet.push(100);
