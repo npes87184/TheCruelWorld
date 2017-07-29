@@ -2,191 +2,189 @@
 <html>
 
 <head>
-    <title>The cruel world</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css"  media="screen,projection"/>
-    <style>
-    canvas {
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select: none;
-    }
-    </style>
+	<title>The cruel world</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css"	media="screen,projection"/>
+	<style>
+	canvas {
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}
+	</style>
 </head>
 
 <body>
-    <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+	<!--Import jQuery before materialize.js-->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
 
-    <nav class="top-nav">
-        <div class="container">
-            <div class="nav-wrapper"><a class="brand-logo center">100 dollars experiment</a></div>
-        </div>
-    </nav>
-    <div class="container" id="container" style="width: 75%;">
-<a href="https://github.com/npes87184/TheCruelWorld"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
-        <canvas id="canvas"></canvas>
-        <br>
-        <div class="row">
-          <div class="input-field col s6">
-            <input value="10000" id="days" type="text" class="validate">
-            <label class="active" for="days">Days</label>
-          </div>
-          <div class="input-field col s6">
-            <input value="100" id="people" type="text" class="validate">
-            <label class="active" for="people">People</label>
-          </div>
-        </div>
-        <div class="row">
-						<div class="input-field col s6">
-							<select id="sort">
-								<option value="0">False</option>
-								<option value="1">True</option>
-							</select>
-							<label>Sort</label>
-						</div>
-						<div class="input-field col s6">
-							<select id="debt">
-								<option value="0">False</option>
-								<option value="1">True</option>
-							</select>
-							<label>Allow debt</label>
-						</div>
-        </div>
-        <div class="row center">
-          <a class="waves-effect waves-light btn" id="goExperiment">Go!</a>
-          <a class="waves-effect waves-light btn" id="randomData">Ramdom</a>
-        </div>
-    </div>
-    <script>
-        var chartColors = {
-            red: 'rgb(255, 99, 132)',
-            orange: 'rgb(255, 159, 64)',
-            yellow: 'rgb(255, 205, 86)',
-            green: 'rgb(75, 192, 192)',
-            blue: 'rgb(54, 162, 235)',
-            purple: 'rgb(153, 102, 255)',
-            grey: 'rgb(201, 203, 207)'
-        };
-        var color = Chart.helpers.color;
-        var i = 0;
-        var dataSet = [];
-        var labelSet = [];
-        for (i = 0; i < document.getElementById("people").value; ++i) {
-            dataSet.push(100);
-            labelSet.push(i);
-        }
-        var barChartData = {
-            labels: labelSet,
-            datasets: [{
-                label: 'Money',
-                backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
-                borderColor: chartColors.blue,
-                borderWidth: 1,
-                data: dataSet
-            }]
+	<nav class="top-nav">
+		<div class="container">
+			<div class="nav-wrapper"><a class="brand-logo center">100 dollars experiment</a></div>
+		</div>
+	</nav>
+	<div class="container" id="container" style="width: 75%;">
+		<a href="https://github.com/npes87184/TheCruelWorld"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+		<canvas id="canvas"></canvas>
+		<br>
+		<div class="row">
+			<div class="input-field col s6">
+				<input value="10000" id="days" type="text" class="validate">
+				<label class="active" for="days">Days</label>
+			</div>
+			<div class="input-field col s6">
+				<input value="100" id="people" type="text" class="validate">
+				<label class="active" for="people">People</label>
+			</div>
+  		</div>
+		<div class="row">
+			<div class="input-field col s6">
+				<select id="sort">
+					<option value="0">False</option>
+					<option value="1">True</option>
+				</select>
+				<label>Sort</label>
+			</div>
+			<div class="input-field col s6">
+				<select id="debt">
+					<option value="0">False</option>
+					<option value="1">True</option>
+				</select>
+				<label>Allow debt</label>
+			</div>
+		</div>
+			<div class="row center">
+				<a class="waves-effect waves-light btn" id="goExperiment">Go!</a>
+				<a class="waves-effect waves-light btn" id="randomData">Ramdom</a>
+			</div>
+		</div>
+		<script>
+			var chartColors = {
+				red: 'rgb(255, 99, 132)',
+				orange: 'rgb(255, 159, 64)',
+				yellow: 'rgb(255, 205, 86)',
+				green: 'rgb(75, 192, 192)',
+				blue: 'rgb(54, 162, 235)',
+				purple: 'rgb(153, 102, 255)',
+				grey: 'rgb(201, 203, 207)'
+			};
+			var color = Chart.helpers.color;
+			var i = 0;
+			var dataSet = [];
+			var labelSet = [];
+			for (i = 0; i < document.getElementById("people").value; ++i) {
+				dataSet.push(100);
+				labelSet.push(i);
+			}
+			var barChartData = {
+				labels: labelSet,
+				datasets: [{
+					label: 'Money',
+					backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
+					borderColor: chartColors.blue,
+					borderWidth: 1,
+					data: dataSet
+				}]
+			};
 
-        };
-
-        window.onload = function() {
-            var ctx = document.getElementById("canvas").getContext("2d");
-            window.myBar = new Chart(ctx, {
-                type: 'bar',
-                data: barChartData,
-                options: {
-                    responsive: true,
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'The wealth of each people'
-                    }
-                }
-            });
-
-        };
-
-        document.getElementById('goExperiment').addEventListener('click', function() {
-            var i = 0;
-            var j = 0;
-						var dataSet = [];
-						var labelSet = [];
-						var days = parseInt(document.getElementById("days").value, 10);
-						var people =  parseInt(document.getElementById("people").value, 10);
-            var blSorted = (document.getElementById("sort").selectedIndex === 1);
-            var blAllowDebt = (document.getElementById("debt").selectedIndex === 1);
-
-            if (isNaN(days) || isNaN(people) || days < 0 || people < 0) {
-                Materialize.toast('Bad parameters', 4000);
-                return;
-            }
-
-            for (i = 0; i < people; ++i) {
-                dataSet.push(100);
-                labelSet.push(i);
-            }
-
-            barChartData.labels = labelSet;
-
-            for (i = 0; i < days; ++i) {
-                var coins = 0;
-                /* Calculate the coin this day. */
-                for (j = 0; j < people; ++j) {
-                    if (blAllowDebt) {
-                        coins = coins + 1;
-                        dataSet[j] = dataSet[j] - 1;
-                    } else {
-                        if (dataSet[j] > 0) {
-                            coins = coins + 1;
-                            dataSet[j] = dataSet[j] - 1;
-                        }
-                    }
-                }
-
-                /* Distribute the coins to the man. */
-                for (j = 0; j < coins; ++j) {
-                    var luckyBoy = Math.floor(Math.random() * people);
-                    dataSet[luckyBoy] = dataSet[luckyBoy] + 1;
-                }
-
-                if (blSorted) {
-                    dataSet.sort(function(a, b){return a-b});
-                }
-                barChartData.datasets[0].data = dataSet;
-                /* TODO try to update chart each iteration. */
-            }
-            /* If we update chart in each iteraion it looks like hang... */
-						window.myBar.update();
-        });
-
-        document.getElementById('randomData').addEventListener('click', function() {
-            var randomDays = Math.floor(Math.random() * 20000);
-            var randomPeople = Math.floor(Math.random() * 500);
-            var dataSet = [];
-            var labelSet = [];
-
-						document.getElementById("days").value = randomDays;
-						document.getElementById("people").value = randomPeople;
-            for (i = 0; i < randomPeople; ++i) {
-                dataSet.push(100);
-                labelSet.push(i);
-            }
-
-            barChartData.labels = labelSet;
-            barChartData.datasets[0].data = dataSet;
-						window.myBar.update();
-        });
-
-				/* Initialize combobox. */
-				$(document).ready(function() {
-					$('select').material_select();
+			window.onload = function() {
+				var ctx = document.getElementById("canvas").getContext("2d");
+				window.myBar = new Chart(ctx, {
+					type: 'bar',
+					data: barChartData,
+					options: {
+						responsive: true,
+						legend: {
+							position: 'top',
+						},
+						title: {
+							display: true,
+							text: 'The wealth of each people'
+						}
+					}
 				});
-    </script>
+			};
+
+			document.getElementById('goExperiment').addEventListener('click', function() {
+				var i = 0;
+				var j = 0;
+				var dataSet = [];
+				var labelSet = [];
+				var days = parseInt(document.getElementById("days").value, 10);
+				var people =	parseInt(document.getElementById("people").value, 10);
+				var blSorted = (document.getElementById("sort").selectedIndex === 1);
+				var blAllowDebt = (document.getElementById("debt").selectedIndex === 1);
+
+				if (isNaN(days) || isNaN(people) || days < 0 || people < 0) {
+					Materialize.toast('Bad parameters', 4000);
+					return;
+				}
+
+				for (i = 0; i < people; ++i) {
+					dataSet.push(100);
+					labelSet.push(i);
+				}
+
+				barChartData.labels = labelSet;
+
+				for (i = 0; i < days; ++i) {
+					var coins = 0;
+					/* Calculate the coin this day. */
+					for (j = 0; j < people; ++j) {
+						if (blAllowDebt) {
+							coins = coins + 1;
+							dataSet[j] = dataSet[j] - 1;
+						} else {
+							if (dataSet[j] > 0) {
+	  							coins = coins + 1;
+								dataSet[j] = dataSet[j] - 1;
+							}
+						}
+					}
+
+					/* Distribute the coins to the man. */
+					for (j = 0; j < coins; ++j) {
+						var luckyBoy = Math.floor(Math.random() * people);
+						dataSet[luckyBoy] = dataSet[luckyBoy] + 1;
+					}
+
+					if (blSorted) {
+						dataSet.sort(function(a, b){return a-b});
+					}
+					barChartData.datasets[0].data = dataSet;
+					/* TODO try to update chart each iteration. */
+				}
+				/* If we update chart in each iteraion it looks like hang... */
+				window.myBar.update();
+			});
+
+			document.getElementById('randomData').addEventListener('click', function() {
+				var randomDays = Math.floor(Math.random() * 20000);
+				var randomPeople = Math.floor(Math.random() * 500);
+				var dataSet = [];
+				var labelSet = [];
+
+				document.getElementById("days").value = randomDays;
+				document.getElementById("people").value = randomPeople;
+				for (i = 0; i < randomPeople; ++i) {
+					dataSet.push(100);
+					labelSet.push(i);
+				}
+
+				barChartData.labels = labelSet;
+				barChartData.datasets[0].data = dataSet;
+				window.myBar.update();
+			});
+
+			/* Initialize combobox. */
+			$(document).ready(function() {
+				$('select').material_select();
+			});
+		</script>
 </body>
 
 </html>
