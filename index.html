@@ -41,8 +41,24 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s3 offset-s4 push-s1"><a class="waves-effect waves-light btn" id="goExperiment">Go!</a></div>
-          <div class="col s3 pull-s1"><a class="waves-effect waves-light btn" id="randomData">Ramdom</a></div>
+						<div class="input-field col s6">
+							<select id="sort">
+								<option value="0">False</option>
+								<option value="1">True</option>
+							</select>
+							<label>Sort</label>
+						</div>
+						<div class="input-field col s6">
+							<select id="debt">
+								<option value="0">False</option>
+								<option value="1">True</option>
+							</select>
+							<label>Allow debt</label>
+						</div>
+        </div>
+        <div class="row">
+          <div class="col s3 offset-s3"><a class="waves-effect waves-light btn" id="goExperiment">Go!</a></div>
+          <div class="col s3"><a class="waves-effect waves-light btn" id="randomData">Ramdom</a></div>
         </div>
     </div>
     <script>
@@ -66,7 +82,7 @@
         var barChartData = {
             labels: labelSet,
             datasets: [{
-                label: 'Dataset 2',
+                label: 'Money',
                 backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
                 borderColor: chartColors.blue,
                 borderWidth: 1,
@@ -87,7 +103,7 @@
                     },
                     title: {
                         display: true,
-                        text: 'The worth'
+                        text: 'The worth of each people'
                     }
                 }
             });
@@ -101,6 +117,9 @@
 						var labelSet = [];
 						var days = document.getElementById("days").value;
 						var people =  document.getElementById("people").value;
+            var blSorted = (document.getElementById("sort").selectedIndex === 1);
+            var blAllowDebt = (document.getElementById("debt").selectedIndex === 1);
+
             for (i = 0; i < people; ++i) {
                 dataSet.push(100);
                 labelSet.push(i);
@@ -112,18 +131,26 @@
                 var coins = 0;
                 /* Calculate the coin this day. */
                 for (j = 0; j < people; ++j) {
-                    if (dataSet[j] > 0) {
+                    if (blAllowDebt) {
                         coins = coins + 1;
                         dataSet[j] = dataSet[j] - 1;
+                    } else {
+                        if (dataSet[j] > 0) {
+                            coins = coins + 1;
+                            dataSet[j] = dataSet[j] - 1;
+                        }
                     }
                 }
 
                 /* Distribute the coins to the man. */
                 for (j = 0; j < coins; ++j) {
-                    var luckyBoy = Math.round(Math.random() * people);
+                    var luckyBoy = Math.floor(Math.random() * people);
                     dataSet[luckyBoy] = dataSet[luckyBoy] + 1;
                 }
 
+                if (blSorted) {
+                    dataSet.sort(function(a, b){return a-b});
+                }
                 barChartData.datasets[0].data = dataSet;
                 /* TODO try to update chart each iteration. */
             }
@@ -135,6 +162,11 @@
 						document.getElementById("days").value = 10000;
 						document.getElementById("people").value = 100;
         });
+
+				/* Initialize combobox. */
+				$(document).ready(function() {
+					$('select').material_select();
+				});
     </script>
 </body>
 
