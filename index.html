@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>The cruel world</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css"  media="screen,projection"/>
+    <style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+    </style>
+</head>
+
+<body>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+
+    <nav class="top-nav">
+        <div class="container">
+            <div class="nav-wrapper"><a class="brand-logo center">100 dollars experiment</a></div>
+        </div>
+    </nav>
+    <div class="container" id="container" style="width: 75%;">
+        <canvas id="canvas"></canvas>
+        <br>
+        <div class="row">
+          <div class="input-field col s6">
+            <input value="10000" id="days" type="text" class="validate">
+            <label class="active" for="days">Days</label>
+          </div>
+          <div class="input-field col s6">
+            <input value="100" id="people" type="text" class="validate">
+            <label class="active" for="people">People</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s3 offset-s4 push-s1"><a class="waves-effect waves-light btn" id="goExperiment">Go!</a></div>
+          <div class="col s3 pull-s1"><a class="waves-effect waves-light btn" id="randomData">Ramdom</a></div>
+        </div>
+    </div>
+    <script>
+        var chartColors = {
+            red: 'rgb(255, 99, 132)',
+            orange: 'rgb(255, 159, 64)',
+            yellow: 'rgb(255, 205, 86)',
+            green: 'rgb(75, 192, 192)',
+            blue: 'rgb(54, 162, 235)',
+            purple: 'rgb(153, 102, 255)',
+            grey: 'rgb(201, 203, 207)'
+        };
+        var color = Chart.helpers.color;
+        var i = 0;
+        var dataSet = [];
+        var labelSet = [];
+        for (i = 0; i < document.getElementById("people").value; ++i) {
+            dataSet.push(100);
+            labelSet.push(i);
+        }
+        var barChartData = {
+            labels: labelSet,
+            datasets: [{
+                label: 'Dataset 2',
+                backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
+                borderColor: chartColors.blue,
+                borderWidth: 1,
+                data: dataSet
+            }]
+
+        };
+
+        window.onload = function() {
+            var ctx = document.getElementById("canvas").getContext("2d");
+            window.myBar = new Chart(ctx, {
+                type: 'bar',
+                data: barChartData,
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'The worth'
+                    }
+                }
+            });
+
+        };
+
+        document.getElementById('goExperiment').addEventListener('click', function() {
+            var i = 0;
+            var j = 0;
+						var dataSet = [];
+						var labelSet = [];
+						var days = document.getElementById("days").value;
+						var people =  document.getElementById("people").value;
+            for (i = 0; i < people; ++i) {
+                dataSet.push(100);
+                labelSet.push(i);
+            }
+
+            barChartData.labels = labelSet;
+
+            for (i = 0; i < days; ++i) {
+                var coins = 0;
+                /* Calculate the coin this day. */
+                for (j = 0; j < people; ++j) {
+                    if (dataSet[j] > 0) {
+                        coins = coins + 1;
+                        dataSet[j] = dataSet[j] - 1;
+                    }
+                }
+
+                /* Distribute the coins to the man. */
+                for (j = 0; j < coins; ++j) {
+                    var luckyBoy = Math.round(Math.random() * people);
+                    dataSet[luckyBoy] = dataSet[luckyBoy] + 1;
+                }
+
+                barChartData.datasets[0].data = dataSet;
+                /* TODO try to update chart each iteration. */
+            }
+            /* If we update chart in each iteraion it looks like hang... */
+						window.myBar.update();
+        });
+
+        document.getElementById('randomData').addEventListener('click', function() {
+						document.getElementById("days").value = 10000;
+						document.getElementById("people").value = 100;
+        });
+    </script>
+</body>
+
+</html>
